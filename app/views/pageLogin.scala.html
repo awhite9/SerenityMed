@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<title>Log In</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="description" content="QueenAdmin - Beautiful Bootstrap Admin Dashboard Theme">
+	<meta name="author" content="The Develovers">
+
+	<!-- CSS -->
+	<link href="@routes.Assets.at("bootstrap/assets/css/bootstrap.css")" rel="stylesheet" type="text/css">
+	<link href="@routes.Assets.at("bootstrap/assets/css/ionicons.css")" rel="stylesheet" type="text/css">
+	<link href="@routes.Assets.at("bootstrap/assets/css/main.css")" rel="stylesheet" type="text/css">
+
+	<!-- Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,700' rel='stylesheet' type='text/css'>
+
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon144x144.png")">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon114x114.png")">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon72x72.png")">
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon57x57.png")">
+	<link rel="shortcut icon" href="@routes.Assets.at("bootstrap/assets/ico/favicon.png")">
+
+</head>
+<body class="middle-content page-login">
+	<div class="top-bar text-center"><a href="@routes.HealthSummaryController.getHealthSummary()"><img src="@routes.Assets.at("bootstrap/assets/img/serenitymed.png")" alt="Serenity Med"></a></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-2">
+				<div class="content-box-bordered login-box box-with-help">
+					<h1>Log in to your account</h1>
+					<form class="form-horizontal" role="form" method="POST" action="@routes.SMSAmazonController.twoFactorGenerator">
+						<div class="form-group">
+							<label for="sessionEmail" class="control-label sr-only">sessionEmail</label>
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="icon ion-email"></i></span>
+									<input name="sessionEmail" type="email" class="form-control" id="sessionEmail" placeholder="Email">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="password" class="control-label sr-only">password</label>
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="icon ion-locked"></i></span>
+									<input name="password" type="password" class="form-control" id="password" placeholder="Password">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="confirmPassword" class="control-label sr-only">confirmPassword</label>
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="icon ion-locked"></i></span>
+									<input name="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-7">
+								<button type="submit" class="btn btn-success btn-block">Sign in</button>
+							</div>
+						</div>
+					</form>
+					<p><em>Don't have an account yet?</em> <a href="@routes.PatientController.getRegistration"><strong>Sign Up</strong></a></p>
+				</div>
+			</div>
+			<div class="col-sm-5 col-lg-4">
+				<div class="login-copytext">
+					<h2>What is Serenity Med?</h2>
+					<p>Serenity Med is a stand alone web application designed to give users a platform to manage personal health. Our purpose
+					with this product is to provide you with resources, reminders, information, and management utilities all integrated in an
+					easy to use and attractive interface.</p>
+					<h2>Who are we?</h2>
+					<p>This product was developed as a final project by several students from the Arkansas Coding Academies Java "Bootcamp".
+						Our mission was to produce something of substance that would not only demonstrate our technical skills and abilities
+						but also help to improve the local community.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Javascript -->
+	<script src="@routes.Assets.at("bootstrap/assets/js/jquery/jquery-2.1.0.min.js")"></script>
+	<script src="@routes.Assets.at("bootstrap/assets/js/bootstrap/bootstrap.js")"></script>
+	<script src="@routes.Assets.at("bootstrap/assets/js/queen-form-layouts.js")"></script>
+
+</body>
+</html>

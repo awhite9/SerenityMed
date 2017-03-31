@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <title>Prescription Reminder Manager</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="button to do single check of reminder DB and send SNS">
+    <meta name="author" content="Ashley White">
+    <!-- CSS -->
+    <link href="@routes.Assets.at("bootstrap/assets/css/bootstrap.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/ionicons.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/font-awesome.min.css")" rel="stylesheet type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/main.css")" rel="stylesheet" type="text/css">
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,700' rel='stylesheet' type='text/css'>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="144x144" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon144x144.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="114x114" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon114x114.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="72x72" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon72x72.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="57x57" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon57x57.png")">
+    <link rel="shortcut icon" href="@routes.Assets.at("bootstrap/assets/ico/favicon.ico")">
+</head>
+
+<body class="fixed-top-active dynamic-tables">
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- TOP NAV BAR -->
+    <nav class="top-bar navbar-fixed-top" role="navigation">
+        <div class="logo-area">
+            <a href="#" id="btn-nav-sidebar-minified" class="btn btn-link btn-nav-sidebar-minified pull-left"><i class="icon ion-arrow-swap"></i></a>
+            <a class="btn btn-link btn-off-canvas pull-left"><i class="icon ion-navicon"></i></a>
+            <div class="logo pull-left">
+                <a href="@routes.HealthSummaryController.getHealthSummary()">
+                    <img src="@routes.Assets.at("bootstrap/assets/img/serenitymed.png")" alt="Health Summary" /></a>
+                </a>
+            </div>
+        </div>
+        <div class="top-bar-right pull-right">
+            <div class="logged-user">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="@routes.Assets.at("bootstrap/assets/img/serenitymed.png")" alt="Health Summary" /></a>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">
+                                <i class="icon ion-ios-person"></i>
+                                <span class="text">Profile/Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon ion-power"></i>
+                                <span class="text">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="action-group visible-lg-inline-block">
+                <ul>
+                    <li class="action-item chat">
+                        <a><i class="icon ion-ios-chatboxes-outline"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END TOP NAV BAR -->
+    <!-- COLUMN LEFT -->
+    <div id="col-left" class="col-left">
+        <div class="main-nav-wrapper">
+            <nav id="main-nav" class="main-nav">
+                <h3>MAIN</h3>
+                <ul class="main-menu">
+                    <li><a href="@routes.HealthSummaryController.getHealthSummary"><i class="ion-ios-pulse"></i><span class="text">Health Summary</span></a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="submenu-toggle"><i class="icon ion-ios-paper-outline"></i><span class="text">Managers</span></a>
+                        <ul class="list-unstyled sub-menu collapse">
+                            <li><a href="@routes.PrescriptionController.getPrescriptionManager()"><span class="text">Prescription Manager</span></a></li>
+                            <li><a href="@routes.MedicalHistoryController.getHealthConditionManager()"><span class="text">Health Condition Manager</span></a></li>
+                            <li class="active"><a href="@routes.LabController.getLabManager()"><span class="text">Lab Manager</span></a></li>
+                            <li><a href="@routes.VitalController.getVitalManager()"><span class="text">Vital Manager</span></a></li>
+                            <li><a href="@routes.AppointmentController.getAppointmentManager()"><span class="text">Appointment Manager</span></a></li>
+                            <li><a href="@routes.VaccineController.getVaccineManager()"><span class="text">Vaccination Manager</span></a></li>
+                            <li><a href="@routes.AllergyController.getAllergyManager()"><span class="text">Allergy Manager</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="@routes.ReminderPrescriptionController.getReminderManager()"><i class="ion-ios-alarm-outline"></i><span class="text">Prescription Reminders</span></a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END COLUMN LEFT -->
+    <!-- COLUMN RIGHT -->
+    <div id="col-right" class="col-right ">
+        <div class="container-fluid primary-content">
+            <!-- PRIMARY CONTENT HEADING -->
+            <div class="primary-content-heading clearfix">
+                <h2>SEND SNS</h2>
+                <ul class="breadcrumb pull-left">
+                    <li><i class="icon ion-home"></i><a href="@routes.HealthSummaryController.getHealthSummary">Home</a></li>
+                    <li><a href="#">Managers</a></li>
+                    <li class="active">Prescription Reminder Manager</li>
+                </ul>
+
+                <!-- quick task modal -->
+
+                <!-- end quick task modal -->
+            </div>
+            <!-- END PRIMARY CONTENT HEADING -->
+            <!-- SHOW HIDE COLUMNS -->
+        </div>
+        <form method="POST" action="@routes.PrescriptionReminderSNSController.checkDB()">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary btn-block">Send reminder SNS</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- END COLUMN RIGHT -->
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="@routes.Assets.at("bootstrap/assets/js/jquery/jquery-2.1.0.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/bootstrap/bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-common.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/jquery.dataTables.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.colVis.bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.colReorder.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.tableTools.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/dataTables.bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-table.js")"></script>
+
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-slider/bootstrap-slider.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-form-layouts.js")"></script>
+
+
+<script src="@routes.Assets.at("bootstrap/assets/js/jquery-ui/jquery-ui-1.10.4.custom.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jqallrangesliders/jQAllRangeSliders-min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jquery-maskedinput/jquery.masked-input.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/daterangepicker/daterangepicker.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/moment/moment.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-slider/bootstrap-slider.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-touchspin/bootstrap.touchspin.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/select2/select2.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-elements.js")"></script>
+</body>
+
+
+</html>

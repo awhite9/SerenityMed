@@ -1,0 +1,152 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# Patient
+GET     /                        controllers.PatientController.getPatient
+GET     /404                     controllers.PatientController.get404()
+GET     /505                     controllers.PatientController.get505()
+
+
+
+# Health Summary Dashboard
+GET     /healthSummary       controllers.HealthSummaryController.getHealthSummary()
+POST    /resolved            controllers.HealthSummaryController.resolveConditionHS(id:Long)
+
+# Prescription Manager
+GET     /prescription            controllers.PrescriptionController.getPrescriptionManager()
+GET     /editScript/:id          controllers.PrescriptionController.getPrescriptionEdit(id:Long)
+POST    /addScript               controllers.PrescriptionController.addPrescription()
+POST    /deleteScript            controllers.PrescriptionController.deletePrescription(id:Long)
+POST    /updateScript            controllers.PrescriptionController.updatePrescription()
+GET     /apiSpelling             controllers.PrescriptionController.spellingCorrection()
+POST    /api                     controllers.PrescriptionController.addMedication()
+GET     /interaction             controllers.PrescriptionController.getDrugInteraction()
+
+# Medical History Manager
+GET     /moreInfo            controllers.MedicalHistoryController.getMoreInfo()
+GET     /healthManager       controllers.MedicalHistoryController.getHealthConditionManager()
+POST    /deleteCondition     controllers.MedicalHistoryController.deleteCondition(id:Long)
+POST    /addCondition        controllers.MedicalHistoryController.addMedicalHistory()
+POST    /conditionRes        controllers.MedicalHistoryController.resolveCondition(id:Long)
+
+# Allergy Manager
+GET     /allergyManager          controllers.AllergyController.getAllergyManager()
+POST    /addAllergy              controllers.AllergyController.addAllergy()
+POST    /deleteAllergy           controllers.AllergyController.deleteAllergy(id:Long)
+
+# Lab Manager
+GET     /labManager              controllers.LabController.getLabManager()
+POST    /deleteLab               controllers.LabController.deleteLab(labPulledId:Long)
+POST    /addLab                  controllers.LabController.addLab()
+GET     /editLab/:labPulledId    controllers.LabController.editLab(labPulledId:Long)
+POST    /updateLab               controllers.LabController.updateLab()
+
+# Vital Manager
+GET     /vitalManager            controllers.VitalController.getVitalManager()
+POST    /addVitals               controllers.VitalController.addVitals()
+POST    /deleteVitals            controllers.VitalController.deleteVitals()
+GET     /editVitals/:id          controllers.VitalController.editVitals(id:Long)
+POST    /updateVitals            controllers.VitalController.updateVitals()
+
+# Vaccine Manager
+GET     /vaccineManager          controllers.VaccineController.getVaccineManager()
+POST    /addVaccine              controllers.VaccineController.addVaccine()
+POST    /deleteVaccine           controllers.VaccineController.deleteVaccine(id:Long)
+GET     /editVaccine/:id         controllers.VaccineController.editVaccine(id:Long)
+POST    /updateVaccine           controllers.VaccineController.updateVaccine()
+
+# Appointment Manager
+GET     /appointment             controllers.AppointmentController.getAppointmentManager()
+POST    /appointment             controllers.AppointmentController.deleteAppointment(appointmentId:Long)
+POST    /addAppointment          controllers.AppointmentController.addAppointment()
+GET     /editAppointment/:appointmentId     controllers.AppointmentController.getAppointmentEdit(appointmentId:Long)
+POST    /updateAppointment       controllers.AppointmentController.updateAppointment()
+GET     /map/:doctorId           controllers.AppointmentController.getMap(doctorId:Long)
+GET     /editMap/:doctorId/:appointmentID   controllers.AppointmentController.getEditMap(doctorId:Long,appointmentID:Long)
+
+
+
+# Prescription Reminder Manager
+GET     /preReminder             controllers.ReminderPrescriptionController.getReminderManager()
+POST    /deletePreReminder       controllers.ReminderPrescriptionController.deleteReminder(id:Long)
+POST    /addPreReminder          controllers.ReminderPrescriptionController.addReminder()
+GET     /editPreReminder/:id     controllers.ReminderPrescriptionController.editReminder(id:Long)
+POST    /updatePreReminder       controllers.ReminderPrescriptionController.updateReminder()
+
+# Daemon
+GET     /sns                     controllers.PrescriptionReminderSNSController.sendReminderSNS()
+POST    /buttonStart             controllers.PrescriptionReminderSNSController.checkDB()
+
+# Daemon
+GET     /daemonStart             controllers.DaemonController.start()
+
+
+
+
+
+
+
+
+
+
+#Log In Page
+GET     /pageLogin           controllers.PatientController.getPageLogin()
+POST    /user                controllers.SMSAmazonController.twoFactorGenerator
+
+#Two Factor
+POST   /twoFactor            controllers.SMSAmazonController.allowAccess
+GET    /pageTwoFactor        controllers.PatientController.getPageTwoFactor()
+
+
+#Password Wizard
+POST   /addPassword          controllers.UserController.passwordWizard
+GET    /pagePasswordWizard   controllers.PatientController.getPagePasswordWizard()
+
+
+#Add A New User
+POST   /postAddUser          controllers.UserController.addUser
+GET    /pageRegistration     controllers.PatientController.getRegistration()
+
+
+#View Edit And Update A User
+POST   /updatePatient        controllers.UserController.updatePatient
+GET    /pageViewMyInfo       controllers.PatientController.getPageViewMyInfo()
+GET    /pageEditUser/:id     controllers.PatientController.pageEditUser(id:String)
+
+
+
+#Log Out/Clear Session
+POST   /logout               controllers.UserController.logout
+
+# Random User
+GET    /randomUser                 controllers.RandomUserController.getRandomUser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

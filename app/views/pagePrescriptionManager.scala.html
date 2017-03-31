@@ -1,0 +1,317 @@
+@(prescription: List[PrescriptionManager], patientList: List[Patient], frequencyList: List[Frequency], medicationList: List[Medication], doctorList: List[Doctor], pharmacyList: List[Pharmacy], fullName: Patient)
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <title>Prescription Manager</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Prescription table with add, edit, delete">
+    <meta name="author" content="Ashley White">
+    <!-- CSS -->
+    <link href="@routes.Assets.at("bootstrap/assets/css/bootstrap.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/ionicons.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/font-awesome.min.css")" rel="stylesheet type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/main.css")" rel="stylesheet" type="text/css">
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,700' rel='stylesheet' type='text/css'>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="144x144" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon144x144.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="114x114" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon114x114.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="72x72" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon72x72.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="57x57" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon57x57.png")">
+</head>
+
+<body class="fixed-top-active fancy-form-elements">
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- TOP NAV BAR -->
+    <nav class="top-bar navbar-fixed-top" role="navigation">
+        <div class="logo-area">
+            <a href="#" id="btn-nav-sidebar-minified" class="btn btn-link btn-nav-sidebar-minified pull-left"><i class="icon ion-arrow-swap"></i></a>
+            <a class="btn btn-link btn-off-canvas pull-left"><i class="icon ion-navicon"></i></a>
+            <div class="logo pull-left">
+                <a href="@routes.HealthSummaryController.getHealthSummary()">
+                    <img src="@routes.Assets.at("bootstrap/assets/img/serenitymed.png")" alt="Health Summary" /></a>
+                </a>
+            </div>
+        </div>
+        <div class="top-bar-right pull-right">
+            <div class="logged-user">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="@routes.Assets.at("bootstrap/assets/img/user-loggedin.png")" alt="Sebastian" /><span class="name">@fullName.firstName @fullName.lastName <i class="icon ion-ios-arrow-down"></i></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="@routes.PatientController.getPageViewMyInfo">
+                                <i class="icon ion-ios-person"></i>
+                                <span class="text">Profile/Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@routes.PatientController.getPageLogin">
+                                <i class="icon ion-power"></i>
+                                <span class="text">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END TOP NAV BAR -->
+    <!-- COLUMN LEFT -->
+    <div id="col-left" class="col-left">
+        <div class="main-nav-wrapper">
+            <nav id="main-nav" class="main-nav">
+                <h3>MAIN</h3>
+                <ul class="main-menu">
+                    <li><a href="@routes.HealthSummaryController.getHealthSummary"><i class="ion-ios-pulse"></i><span class="text">Health Summary</span></a></li>
+                    <li class="has-submenu active">
+                        <a href="#" class="submenu-toggle"><i class="icon ion-ios-paper-outline"></i><span class="text">Managers</span></a>
+                        <ul class="list-unstyled sub-menu collapse">
+                            <li class="active"><a href="@routes.PrescriptionController.getPrescriptionManager()"><span class="text">Prescription Manager</span></a></li>
+                            <li><a href="@routes.MedicalHistoryController.getHealthConditionManager()"><span class="text">Health Condition Manager</span></a></li>
+                            <li><a href="@routes.LabController.getLabManager()"><span class="text">Lab Manager</span></a></li>
+                            <li><a href="@routes.VitalController.getVitalManager()"><span class="text">Vital Manager</span></a></li>
+                            <li><a href="@routes.AppointmentController.getAppointmentManager()"><span class="text">Appointment Manager</span></a></li>
+                            <li><a href="@routes.VaccineController.getVaccineManager()"><span class="text">Vaccination Manager</span></a></li>
+                            <li><a href="@routes.AllergyController.getAllergyManager()"><span class="text">Allergy Manager</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="@routes.ReminderPrescriptionController.getReminderManager()"><i class="ion-ios-alarm-outline"></i><span class="text">Prescription Reminders</span></a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END COLUMN LEFT -->
+    <!-- COLUMN RIGHT -->
+    <div id="col-right" class="col-right ">
+        <div class="container-fluid primary-content">
+            <!-- PRIMARY CONTENT HEADING -->
+            <div class="primary-content-heading clearfix">
+                <h2>PRESCRIPTION MANAGER</h2>
+                <ul class="breadcrumb pull-left">
+                    <li><i class="icon ion-home"></i><a href="#">Home</a></li>
+                    <li><a href="#">Managers</a></li>
+                    <li class="active">Prescription Manager</li>
+                </ul>
+
+                <!-- quick task modal -->
+                <!-- end quick task modal -->
+            </div>
+            <!-- END PRIMARY CONTENT HEADING -->
+            <!-- SHOW HIDE COLUMNS -->
+            <div class="widget">
+                <div class="widget-header clearfix">
+                    <h3><i class="fa fa-toggle-on" aria-hidden="true"></i> <span>PRESCRIPTION LIST</span></h3>
+                    <div class="btn-group widget-header-toolbar visible-lg">
+                        <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                        <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                        <table id="datatable-column-interactive" class="table table-sorting table-hover table-bordered colored-header datatable">
+                            <thead>
+                            <tr>
+                                <th>Drug Name</th>
+                                <th>Dosage</th>
+                                <th>Frequency</th>
+                                <th>Date</th>
+                                <th>Doctor</th>
+                                <th>Pharmacy</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @for(prescription <- prescription){
+                            <tr>
+                                <td>@prescription.medicationName</td>
+                                <td>@prescription.dosage</td>
+                                <td>@prescription.frequency Seconds</td>
+                                <td>@prescription.date</td>
+                                <td>@prescription.docName</td>
+                                <td>@prescription.pharmName</td>
+                                <td>
+                                    <form method="GET" action="@routes.PrescriptionController.getPrescriptionEdit(prescription.prescriptionID)">
+                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="POST" action="@routes.PrescriptionController.deletePrescription(prescription.prescriptionID)">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            }
+                            </tbody>
+                        </table>
+                        <br>
+                        <form method="GET" action="@routes.PrescriptionController.getDrugInteraction()">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-block">View Possible Drug Interactions</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- TICKET FORM -->
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="icon ion-compose"></i> <span>NEW PRESCRIPTION</span></h3>
+                            <div class="btn-group widget-header-toolbar visible-lg">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <form method="POST" action="@routes.PrescriptionController.addPrescription()" class="form-horizontal form-ticket" role="form">
+                                <fieldset>
+                                    <legend>Prescription Details</legend>
+
+                                    <div class="form-group">
+                                        <label for="medicationID" class="col-sm-3 control-label">Medication Name</label>
+                                        <div class="col-sm-9">
+                                            <select name="medicationID" id="medicationID" class="select2">
+                                                @for(medication <- medicationList){
+                                                <option value=@medication.medicationID>@medication.medicationName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dosage" class="col-sm-3 control-label">Enter Dosage:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="dosage" class="form-control" id="dosage" placeholder="Dosage">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="datepicker" class="col-sm-3 control-label">Date Prescribed</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="icon ion-calendar"></i></span>
+                                                <input name="date" type="text" id="datepicker" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="frequencyID" class="col-sm-3 control-label">Frequency</label>
+                                        <div class="col-sm-9">
+                                            <select id="frequencyID" name="frequencyID" class="select-ticket-priority">
+                                                @for(frequency <- frequencyList){
+                                                <option value=@frequency.frequencyID>@frequency.frequency Seconds</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="doctorID" class="col-sm-3 control-label">Doctor</label>
+                                        <div class="col-sm-9">
+                                            <select name="doctorID" id="doctorID" class="select2">
+                                                @for(doctor <- doctorList){
+                                                <option value=@doctor.doctorID>@doctor.docName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pharmacyID" class="col-sm-3 control-label">Pharmacy</label>
+                                        <div class="col-sm-9">
+                                            <select name="pharmacyID" id="pharmacyID" class="select2">
+                                                @for(pharmacy <- pharmacyList){
+                                                <option value=@pharmacy.pharmacyID>@pharmacy.pharmName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-9">
+                                            <button type="submit" class="btn btn-primary btn-block">Add New Prescription</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="widget-content">
+                            <form method="GET" action="@routes.PrescriptionController.spellingCorrection()" class="form-horizontal form-ticket" role="form">
+                                <fieldset>
+                                    <legend>Don't See Your Medication?</legend>
+                                    <div class="form-group">
+                                        <label for="med" class="col-sm-3 control-label">Medication Name:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="med" class="form-control" id="med" placeholder="Search Medication Name">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-9">
+                                            <button type="submit" class="btn btn-success btn-block">Search for Medcation</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+
+            <!-- END SHOW HIDE COLUMNS -->
+            <!-- DATA EXPORT -->
+            <!-- END DATA EXPORT -->
+            <!-- COLUMN FILTER -->
+            <!-- END COLUMN FILTER -->
+            <!-- SCROLLING DATA TABLE -->
+            <!-- END SCROLLING DATA TABLE -->
+            <!-- BASIC DATA TABLE -->
+            <!-- END BASIC DATA TABLE -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END COLUMN RIGHT -->
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="@routes.Assets.at("bootstrap/assets/js/jquery/jquery-2.1.0.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/bootstrap/bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-common.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/jquery.dataTables.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.colVis.bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.colReorder.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.tableTools.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/dataTables.bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-table.js")"></script>
+
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-slider/bootstrap-slider.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-form-layouts.js")"></script>
+
+
+<script src="@routes.Assets.at("bootstrap/assets/js/jquery-ui/jquery-ui-1.10.4.custom.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jqallrangesliders/jQAllRangeSliders-min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jquery-maskedinput/jquery.masked-input.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/daterangepicker/daterangepicker.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/moment/moment.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-slider/bootstrap-slider.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-touchspin/bootstrap.touchspin.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/select2/select2.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-elements.js")"></script>
+</body>
+
+
+</html>
+

@@ -1,0 +1,504 @@
+@(lineChart: List[LineChart], barChart: List[BarChart], currentMedical: List[MedicalHistoryManager], pastMedical: List[MedicalHistoryManager], prescription: List[PrescriptionManager], date: List[VitalDate], vitalTable: List[VitalList], lab: List[LabManager], allergy: List[AllergyManager], vaccine: List[VaccinationManager], appointment: List[AppointmentManager], column: List[GoogleColumnChart], fullName: Patient)
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <title>Health Summary</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Health Summary Dashboard">
+    <meta name="author" content="Ashley White">
+    <!-- CSS -->
+    <link href="@routes.Assets.at("bootstrap/assets/css/bootstrap.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/ionicons.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/main.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,700' rel='stylesheet' type='text/css'>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="144x144" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon144x144.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="114x114" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon114x114.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="72x72" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon72x72.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="57x57" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon57x57.png")">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<body class="fixed-top-active dashboard">
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- TOP NAV BAR -->
+    <nav class="top-bar navbar-fixed-top" role="navigation">
+        <div class="logo-area">
+            <a href="#" id="btn-nav-sidebar-minified" class="btn btn-link btn-nav-sidebar-minified pull-left"><i class="icon ion-arrow-swap"></i></a>
+            <a class="btn btn-link btn-off-canvas pull-left"><i class="icon ion-navicon"></i></a>
+            <div class="logo pull-left">
+                <a href="@routes.HealthSummaryController.getHealthSummary()">
+                    <img src="@routes.Assets.at("bootstrap/assets/img/serenitymed.png")" alt="Health Summary" /></a>
+            </div>
+        </div>
+
+        <div class="top-bar-right pull-right">
+            <div class="action-group hidden-xs hidden-sm">
+                <ul>
+
+                    <!-- end skins -->
+                    <!-- notification: inbox -->
+                    <!-- end notification: inbox -->
+                    <!-- notification: general -->
+
+                    <!-- end notification: general -->
+                </ul>
+            </div>
+            <div class="logged-user">
+                <div class="btn-group">
+
+                    <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="@routes.Assets.at("bootstrap/assets/img/user-loggedin.png")" alt="Sebastian" /><span class="name">@fullName.firstName @fullName.lastName     <i class="icon ion-ios-arrow-down"></i></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="@routes.PatientController.getPageViewMyInfo">
+                                <i class="icon ion-ios-person"></i>
+                                <span class="text">Profile/Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@routes.PatientController.getPageLogin">
+                                <i class="icon ion-power"></i>
+                                <span class="text">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <!-- END TOP NAV BAR -->
+    <!-- COLUMN LEFT -->
+    <div id="col-left" class="col-left">
+        <div class="main-nav-wrapper">
+            <nav id="main-nav" class="main-nav">
+                <h3>MAIN</h3>
+                <ul class="main-menu">
+                    <li class="active"><a href="@routes.HealthSummaryController.getHealthSummary"><i class="ion-ios-pulse"></i><span class="text">Health Summary</span></a></li>
+                    <li class="has-submenu">
+                        <a href="#" class="submenu-toggle"><i class="icon ion-ios-paper-outline"></i><span class="text">Managers</span></a>
+                        <ul class="list-unstyled sub-menu collapse">
+                            <li><a href="@routes.PrescriptionController.getPrescriptionManager()"><span class="text">Prescription Manager</span></a></li>
+                            <li><a href="@routes.MedicalHistoryController.getHealthConditionManager()"><span class="text">Health Condition Manager</span></a></li>
+                            <li><a href="@routes.LabController.getLabManager()"><span class="text">Lab Manager</span></a></li>
+                            <li><a href="@routes.VitalController.getVitalManager()"><span class="text">Vital Manager</span></a></li>
+                            <li><a href="@routes.AppointmentController.getAppointmentManager()"><span class="text">Appointment Manager</span></a></li>
+                            <li><a href="@routes.VaccineController.getVaccineManager()"><span class="text">Vaccination Manager</span></a></li>
+                            <li><a href="@routes.AllergyController.getAllergyManager()"><span class="text">Allergy Manager</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="@routes.ReminderPrescriptionController.getReminderManager()"><i class="ion-ios-alarm-outline"></i><span class="text">Prescription Reminders</span></a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END COLUMN LEFT -->
+    <!-- COLUMN RIGHT -->
+    <div id="col-right" class="col-right ">
+        <div class="container-fluid primary-content">
+            <!-- PRIMARY CONTENT HEADING -->
+            <div class="primary-content-heading clearfix">
+                <h2>HEALTH SUMMARY</h2>
+                <ul class="breadcrumb pull-left">
+                    <li><i class="icon ion-home"></i><a href="@routes.HealthSummaryController.getHealthSummary">Home</a></li>
+                    <li><a href="@routes.HealthSummaryController.getHealthSummary">Health Summary</a></li>
+
+                </ul>
+                <!-- Favorites button -->
+                <!-- quick task modal -->
+                <!-- end quick task modal -->
+            </div>
+            <!-- END PRIMARY CONTENT HEADING -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="widget">
+                        <div class="widget-header clearfix no-padding">
+                            <ul class="nav nav-pills nav-justified">
+                                <li class="active"><a data-toggle="tab" href="#tab-sales1" data-cid="#dashboard-sales-chart">Glucose/A1c</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-visits1" data-cid="#dashboard-visits-chart">Weight/Cholesterol</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-sales1" class="tab-pane fade in active">
+                                    <div id="chart_div"></div>
+                                </div>
+                                <div id="tab-visits1" class="tab-pane fade">
+                                    <div id="curve_chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- ORDER STATUS -->
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="fa fa-calendar-o" aria-hidden="true"></i> <span>UPCOMING APPOINTMENTS</span></h3>
+                            <div class="btn-group widget-header-toolbar">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Doctor</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @for(appointment <- appointment){
+                                <tr>
+                                    <td>@appointment.docName</td>
+                                    <td>@appointment.date</td>
+                                    <td>@appointment.time</td>
+                                </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END ORDER STATUS -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- MAP -->
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="ion-ios-medkit-outline"></i> <span>MEDICAL HISTORY</span></h3>
+                            <div class="btn-group widget-header-toolbar visible-lg">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <div class="table-responsive">
+                                <table class="table table-sorting table-striped table-hover datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Current Medical Condition</th>
+                                        <th>Date Diagnosed</th>
+                                        <th>Resolved?</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @for(current <- currentMedical){
+                                    <tr>
+
+                                        <td>@current.mcName</td>
+                                        <td>@current.dateDiagnosed</td>
+                                        <td>
+                                            <form method="POST" action="@routes.HealthSummaryController.resolveConditionHS(current.medicalHistoryID)">
+                                                <button type="submit" class="btn btn-primary">Resolve</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                                <br>
+                                <table class="table table-sorting table-striped table-hover datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Past Medical Condition</th>
+                                        <th>Date Diagnosed</th>
+                                        <th>Resolved</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @for(past <- pastMedical){
+                                    <tr>
+                                        <td>@past.mcName</td>
+                                        <td>@past.dateDiagnosed</td>
+                                        <td>@past.dateResolved</td>
+
+                                    </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                                <form method="GET" action="@routes.MedicalHistoryController.getMoreInfo()">
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary btn-block">Learn about Your Medical Conditions</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END MAP -->
+                </div>
+                <div class="col-md-4">
+                    <!-- COMPLETENESS METER -->
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="fa fa-toggle-on" aria-hidden="true"></i></i><span>  PRESCRIPTION</span></h3>
+                            <div class="btn-group widget-header-toolbar visible-lg">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <div class="table-responsive">
+                                <table id="datatable-basic-scrolling" class="table table-sorting table-hover datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Drug Name</th>
+                                        <th>Dosage</th>
+                                        <th>Frequency</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @for(prescription <- prescription){
+                                    <tr>
+                                        <td>@prescription.medicationName</td>
+                                        <td>@prescription.dosage</td>
+                                        <td>@prescription.frequency Seconds</td>
+                                    </tr>
+                                    }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END COMPLETENESS METER -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- TASK PROGRESS -->
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="fa fa-heartbeat" aria-hidden="true"></i><span>LATEST VITALS</span></h3>
+                            <div class="btn-group widget-header-toolbar visible-lg">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Vital Name</th>
+                                    @for(date <- date){
+                                    <th>@date.dateTaken</th>
+                                    }
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @for(vital <- vitalTable){
+                                <tr>
+                                    <td>@vital.getVitalName</td>
+                                    <td>@vital.getValue1</td>
+                                    <td>@vital.getValue2</td>
+                                    <td>@vital.getValue3</td>
+                                </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END TASK PROGRESS -->
+                </div>
+                <div class="col-md-4">
+                    <!-- NEWS FEED WIDGET -->
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="fa fa-plus-circle" aria-hidden="true"></i> <span>ALLERGY and VACCINATION</span></h3>
+                            <div class="btn-group widget-header-toolbar visible-lg">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Vaccine Name</th>
+                                    <th>Date</th>
+                                    <th>Booster?</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @for(vaccine <- vaccine){
+                                <tr>
+                                    <td>@vaccine.vaccineName</td>
+                                    <td>@vaccine.date</td>
+                                    <td>@vaccine.boosterRequired</td>
+                                </tr>
+                                }
+                                </tbody>
+                            </table>
+                            <br>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Allergy</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @for(allergy <- allergy){
+                                <tr>
+                                    <td>@allergy.allergyName</td>
+                                </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END NEWS FEED WIDGET -->
+                </div>
+                <div class="col-md-4">
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="ion-erlenmeyer-flask"></i> <span>LAB WORK</span></h3>
+                            <div class="btn-group widget-header-toolbar visible-lg">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <div class="table-responsive">
+                                <table id="datatable-basic" class="table table-sorting table-striped table-hover datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Lab Name</th>
+                                        <th>Value</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @for(lab <- lab){
+                                    <tr>
+                                        <td>@lab.labName</td>
+                                        <td>@lab.value</td>
+                                        <td>@lab.dateTaken</td>
+                                    </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- END COLUMN RIGHT -->
+</div>
+
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="@routes.Assets.at("bootstrap/assets/js/jquery/jquery-2.1.0.min.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/bootstrap/bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-common.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/stat/flot/jquery.flot.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/stat/flot/jquery.flot.resize.min.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/stat/flot/jquery.flot.time.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/stat/flot/jquery.flot.orderBars.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/mapael/raphael/raphael-min.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/mapael/jquery.mapael.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/mapael/maps/world_countries.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/moment/moment.min.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-editable/bootstrap-editable.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jquery-maskedinput/jquery.masked-input.min.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/queen-charts.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-maps.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/queen-elements.js")"></script>
+
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/jquery.dataTables.min.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.colVis.bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.colReorder.min.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/exts/dataTables.tableTools.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/datatable/dataTables.bootstrap.js")"></script>
+    <script src="@routes.Assets.at("bootstrap/assets/js/queen-table.js")"></script>
+
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawDualY);
+    function drawDualY() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Date');
+          data.addColumn('number', 'Hc A1C');
+          data.addColumn('number', 'Glucose');
+          data.addRows([
+            @for(bar <- column){
+              ['@bar.getDateTaken', @bar.getHemoglobin, @bar.getGlucose],}
+          ]);
+          var options = {
+            chart: {
+            },
+            series: {
+              0: {axis: 'MotivationLevel'},
+              1: {axis: 'EnergyLevel'}
+            },
+            axes: {
+              y: {
+                MotivationLevel: {label: 'Hemoglobin A1C (5-5.2%)'},
+                EnergyLevel: {label: 'Glucose (1-100)'}
+              }
+            },
+            hAxis: {
+              title: 'Time of Day',
+              viewWindow: {
+                min: [7, 30, 0],
+                max: [17, 30, 0]
+              }
+            },
+            vAxis: {
+              title: 'Rating (scale of 1-10)'
+            }
+          };
+          var material = new google.charts.Bar(document.getElementById('chart_div'));
+          material.draw(data, options);
+        }
+    /* curve_chart */
+    $('.nav-pills a').on('shown.bs.tab', function(event){
+        var x = $(event.target).text();
+        if (x == 'Weight/Cholesterol') {
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Date Taken', 'Weight in lb', 'Total Cholesterol'],
+               @for(lineChart <- lineChart){
+              ['@lineChart.dateTaken', @lineChart.val1, @lineChart.val2],}
+            ]);
+            var options = {
+              title: 'Weight and Cholesterol Over Time',
+              curveType: 'function',
+              legend: { position: 'bottom' }
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+          }
+        }
+});
+    </script>
+
+</body>
+
+</html>

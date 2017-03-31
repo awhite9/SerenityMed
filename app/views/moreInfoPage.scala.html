@@ -1,0 +1,175 @@
+@(doc : List[MedLine], fullName: Patient)
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <title>More Information</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="medLine API calls for more info on health conditions">
+    <meta name="author" content="Ashley White">
+    <!-- CSS -->
+    <link href="@routes.Assets.at("bootstrap/assets/css/bootstrap.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/ionicons.css")" rel="stylesheet" type="text/css">
+    <link href="@routes.Assets.at("bootstrap/assets/css/main.css")" rel="stylesheet type="text/css">
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,700' rel='stylesheet' type='text/css'>
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="144x144" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon144x144.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="114x114" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon114x114.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="72x72" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon72x72.png")">
+    <link rel="apple-touch-icon-precomposed" type="image/png" sizes="57x57" href="@routes.Assets.at("bootstrap/assets/ico/queenadmin-favicon57x57.png")">
+</head>
+
+<body class="fixed-top-active form-layouts">
+<!-- WRAPPER -->
+<div class="wrapper">
+    <!-- TOP NAV BAR -->
+    <nav class="top-bar navbar-fixed-top" role="navigation">
+        <div class="logo-area">
+            <a href="#" id="btn-nav-sidebar-minified" class="btn btn-link btn-nav-sidebar-minified pull-left"><i class="icon ion-arrow-swap"></i></a>
+            <a class="btn btn-link btn-off-canvas pull-left"><i class="icon ion-navicon"></i></a>
+            <div class="logo pull-left">
+                <a href="@routes.HealthSummaryController.getHealthSummary()">
+                    <img src="@routes.Assets.at("bootstrap/assets/img/serenitymed.png")" alt="Health Summary" /></a>
+                </a>
+            </div>
+        </div>
+        <div class="top-bar-right pull-right">
+            <div class="logged-user">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="@routes.Assets.at("bootstrap/assets/img/user-loggedin.png")" alt="Sebastian" /><span class="name">@fullName.firstName @fullName.lastName <i class="icon ion-ios-arrow-down"></i></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="@routes.PatientController.getPageViewMyInfo">
+                                <i class="icon ion-ios-person"></i>
+                                <span class="text">Profile/Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@routes.PatientController.getPageLogin">
+                                <i class="icon ion-power"></i>
+                                <span class="text">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <!-- END TOP NAV BAR -->
+    <!-- COLUMN LEFT -->
+    <div id="col-left" class="col-left">
+        <div class="main-nav-wrapper">
+            <nav id="main-nav" class="main-nav">
+                <h3>MAIN</h3>
+                <ul class="main-menu">
+                    <li><a href="@routes.HealthSummaryController.getHealthSummary"><i class="ion-ios-pulse"></i><span class="text">Health Summary</span></a></li>
+                    <li class="has-submenu active">
+                        <a href="#" class="submenu-toggle"><i class="icon ion-ios-paper-outline"></i><span class="text">Managers</span></a>
+                        <ul class="list-unstyled sub-menu collapse">
+                            <li><a href="@routes.PrescriptionController.getPrescriptionManager()"><span class="text">Prescription Manager</span></a></li>
+                            <li class="active"><a href="@routes.MedicalHistoryController.getHealthConditionManager"><span class="text">Health Condition Manager</span></a></li>
+                            <li><a href="@routes.LabController.getLabManager()"><span class="text">Lab Manager</span></a></li>
+                            <li><a href="@routes.VitalController.getVitalManager()"><span class="text">Vital Manager</span></a></li>
+                            <li><a href="@routes.AppointmentController.getAppointmentManager()"><span class="text">Appointment Manager</span></a></li>
+                            <li><a href="@routes.VaccineController.getVaccineManager()"><span class="text">Vaccination Manager</span></a></li>
+                            <li><a href="@routes.AllergyController.getAllergyManager()"><span class="text">Allergy Manager</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="@routes.ReminderPrescriptionController.getReminderManager()"><i class="ion-ios-alarm-outline"></i><span class="text">Prescription Reminders</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END COLUMN LEFT -->
+    <!-- COLUMN RIGHT -->
+    <div id="col-right" class="col-right ">
+        <div class="container-fluid primary-content">
+            <!-- PRIMARY CONTENT HEADING -->
+            <div class="primary-content-heading clearfix">
+                <h2>MORE INFORMATION</h2>
+                <ul class="breadcrumb pull-left">
+                    <li><i class="icon ion-home"></i><a href="@routes.HealthSummaryController.getHealthSummary">Home</a></li>
+                    <li><a href="@routes.MedicalHistoryController.getHealthConditionManager">Health Condition Manager</a></li>
+                    <li class="active">More Information</li>
+                </ul>
+
+                <!-- quick task modal -->
+
+                <!-- end quick task modal -->
+            </div>
+            <!-- END PRIMARY CONTENT HEADING -->
+            @for(docs <- doc){
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- CONTACT FORM -->
+                    <div class="widget">
+                        <div class="widget-header clearfix">
+                            <h3><i class="ion-ios-medkit-outline"></i> <span>@docs.getName()</span></h3>
+                            <div class="btn-group widget-header-toolbar visible-lg">
+                                <a href="#" title="Expand/Collapse" class="btn btn-link btn-toggle-expand"><i class="icon ion-ios-arrow-up"></i></a>
+                                <a href="#" title="Remove" class="btn btn-link btn-remove"><i class="icon ion-ios-close-empty"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <form action="@docs.getuRL" target="_blank" class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        @Html(docs.getSummary)
+                                        <button type="submit" class="btn btn-primary">More Information</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END CONTACT FORM -->
+                </div>
+            </div>
+                }
+            <!-- TERMS MODAL -->
+            <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="modal-title" id="termsModalLabel">Terms &amp; Conditions</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Heading Text</h4>
+                            <p>Continually embrace strategic e-business after parallel opportunities. Assertively reinvent fully tested resources via proactive value. Proactively scale cutting-edge architectures whereas stand-alone leadership skills. Professionally underwhelm dynamic ROI for multidisciplinary e-business. Completely pursue mission-critical applications before cross-platform results. Collaboratively e-enable fully researched customer service without standards compliant solutions. Progressively morph proactive vortals after performance based models. Intrinsicly drive front-end functionalities without goal-oriented benefits. Intrinsicly coordinate resource maximizing channels.</p>
+                            <h4>Heading Text</h4>
+                            <p>Globally impact progressive technology after customer directed markets. Credibly productivate progressive deliverables through backward-compatible models. Phosfluorescently incentivize high-payoff outsourcing rather than accurate methods of empowerment. Dynamically develop seamless results through cost effective e-business. Energistically incubate economically sound infrastructures with sticky best practices. Uniquely coordinate holistic leadership for collaborative expertise.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary"><i class="icon ion-printer"></i> Print</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END TERMS MODAL -->
+        </div>
+        </div>
+    </div>
+    <!-- END COLUMN RIGHT -->
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="@routes.Assets.at("bootstrap/assets/js/jquery/jquery-2.1.0.min.js")"></script>
+	<script src="@routes.Assets.at("bootstrap/assets/js/bootstrap/bootstrap.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js")"></script>
+	<script src="@routes.Assets.at("bootstrap/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/queen-common.js")"></script>
+	<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js")"></script>
+<script src="@routes.Assets.at("bootstrap/assets/js/plugins/bootstrap-slider/bootstrap-slider.js")"></script>
+	<script src="@routes.Assets.at("bootstrap/assets/js/queen-form-layouts.js")"></script>
+</body>
+
+</html>
